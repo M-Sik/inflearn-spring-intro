@@ -11,20 +11,21 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
-    private final EntityManager em; // jpa를 사용하려면 EntityManager를 주입 받아야함.
+
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+    public SpringConfig( MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService(){
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository(){
-        return new JpaMemberRepository(em);
-    }
+//    @Bean
+//    public MemberRepository memberRepository(){
+//        return new JpaMemberRepository(em);
+//    }
 }
